@@ -2713,8 +2713,10 @@ Blocks.prototype.perfectScale = function()
     for (var k in this.blocks) {
         var block = this.blocks[k];
         if (xMin == null) {
-            xMin = xMax = block.x;
-            yMin = yMax = block.y;
+            xMin = block.x-15;
+			xMax = block.x+block.width+18;
+            yMin = block.y-15;
+			yMax = block.y+115;
         } else {
             xMin = Math.min(xMin, block.x-15);
             xMax = Math.max(xMax, block.x+block.width+18);
@@ -2726,7 +2728,11 @@ Blocks.prototype.perfectScale = function()
     var scaleB = this.div.height()/(yMax-yMin);
     var scale = Math.min(scaleA, scaleB);
 
-    this.scale = scale;
+    if (scale!="Infinity"){
+        this.scale = scale;
+    }else{
+        scale =  this.scale;
+    }
     this.center.x = this.div.width()/2 - scale*(xMin+xMax)/2.0;
     this.center.y = this.div.height()/2 - scale*(yMin+yMax)/2.0;
 
